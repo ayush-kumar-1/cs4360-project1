@@ -28,8 +28,25 @@ Learning Repository. The UCI datasets should have more instances (m) and variabl
 first two datasets. The testing should also be done in R or Python.
 
 ## Problem 6
-
 ​	For the AutoMPG dataset, repeatedly call the backwardElim method to remove the predictor variable
 that contributes the least to the model. Show how the various quality of fit (QoF) measures change as
 variables are eliminated. Do the same for the forwardSel method. Using $R^2$, select the best models
 from the forward and backward approaches. Are they the same?
+
+## The Steps of Data Science (How to Format Report for Each Dataset) 
+
+1. Problem Statement
+2. Collection and Description of Dataset 
+3. Data Preprocessing Techniques Used/Applied
+4. Visual Examination (Correlation Matrix, Scatterplots, Other EDA_)
+5. Modeling Techniques Chosen 
+6. Explanation of Why Techniques were Chosen 
+7. Feature Selection 
+8. Reporting of Results 
+9. Interpretation of Results 
+10. Reccomendations of Study 
+
+## Additional Datasets 
+
+Required datsets are auto-mpg, and concrete. Auto MPG is 398x7 and Concrete is 1030x9. We need datasets that 
+have at least 1,030 observations of 9 variables. 
