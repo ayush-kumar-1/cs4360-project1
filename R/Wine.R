@@ -8,37 +8,46 @@ white_wine = read.csv("../data/WineQuality/winequality-white.csv", sep = ";")
 head(red_wine) 
 head(white_wine)
 
-#splitting the datasets for cross-validation 
-
-train_index = train_test_split(red_wine, 0.80)
-
-red_train = red_wine[train_index,] #size 1279
-red_test = red_wine[-train_index,] #size 320
-
-train_index = train_test_split(white_wine, 0.80)
-
-white_train = white_wine[train_index,] #size 3918
-white_test = white_wine[-train_index,] #size 980
-
 ##Exploratory Data Analysis 
 #correlation matrices to determine collinearity 
 
-plot_cormat(red_train)
-plot_cormat(white_train)
-
+plot_cormat(red_wine)
+plot_cormat(white_wine)
 #reproducibility for both dataframes (red_wine, white_wine)
-plot_all = function(winef) { 
-    for (i in 1:11) {
-      scatter(winef[,i], winef$quality, winef, 
-            names(winef)[i], "quality")
-    } # for i
-  } #plot_all
+
+scatter(red_wine, "quality", col = 3, row = 4)
+scatter(white_wine, "quality", col = 3, row = 4)
+
+###feature selection
+#feature selection using forward selection
+full_formula = as.formula(quality ~ fixed.acidity + 
+  volatile.acidity + citric.acid + 
+  residual.sugar + chlorides + 
+  free.sulfur.dioxide + total.sulfur.dioxide +
+  density + pH + sulphates + alcohol) 
 
 
-plot_all(red_train)
-plot_all(white_train)
+empty_formula = as.formula(quality~1)
 
 
-!is.null(NULL)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

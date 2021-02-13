@@ -45,15 +45,44 @@ plot_cormat = function(dataf) {
 } #plot_cormat
 
 
-scatter = function (xcol, ycol, dataf, xlabel, ylabel, save = NULL) {
-  if (!is.null(save)) { 
-    
-    }
-  scatter_plot = ggplot(dataf, aes(xcol, ycol)) + 
-    geom_point(size = 2, color = "blue") + 
-    xlab(xlabel) + 
-    ylab(ylabel) 
-  
-  print(scatter_plot)
+scatter = function(frame, response, row, col) {
+  par(mfrow = (c(row,col)), 
+      mar = c(4, 4, 3, 3))
+  num_col = ncol(frame)
+  for (i in 1:num_col) { 
+    plot(frame[,i], frame[,response], 
+         xlab = names(frame)[i], 
+         ylab = response)
+  } # for i 
 } #scatter
+
+rsq_cv = function(formula, dataset, k, response, seed = 4360) { 
+  set.seed(seed) 
+  n = nrow(dataset)
+  partition_size = as.integer(n/k)
+  partition = sample(seq_len(n))
+  
+  running_sse = 0
+  for (i in 1:k){
+    lower = 1+((i-1)*partition_size)
+    upper = i*partition_size
+    testing_selection = partition[lower:upper]
+    #divide for cross validation
+    training_set = dataset[-testing_selection,]
+    testing_set = dataset[testing_selection, ]
+    #run the model and predict testing set data
+    model = lm(formula, data = training_set)
+    yhat = predict(model, testing_set)
+    
+    #calculate sse and add it running total 
+    sse = sum((yhat-testing_set[, response])^2)
+    running_sse = running_sse + sse
+  } # for i
+  
+  sst = var(dataset[, response])*n 
+  rsq = 1 - (running_sse/sst)
+  
+  return(rsq)
+  
+} #rsq_cv
 

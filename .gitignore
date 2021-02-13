@@ -1,4 +1,5 @@
 .Rhistorygits
 .Rhistory 
-xargs/
-target/ 
+xargs
+target 
+.Rdata
