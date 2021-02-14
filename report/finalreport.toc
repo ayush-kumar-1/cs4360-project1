@@ -1,0 +1,11 @@
+\contentsline {section}{\numberline {1}Introduction and Methodology}{1}%
+\contentsline {subsection}{\numberline {1.1}Code Credits}{1}%
+\contentsline {section}{\numberline {2}Auto-MPG}{1}%
+\contentsline {section}{\numberline {3}Concrete Compressive Strength}{1}%
+\contentsline {section}{\numberline {4}Crime}{1}%
+\contentsline {section}{\numberline {5}Wine Quality}{1}%
+\contentsline {subsection}{\numberline {5.1}The Dataset}{1}%
+\contentsline {subsection}{\numberline {5.2}Exploratory Data Analysis}{2}%
+\contentsline {subsection}{\numberline {5.3}Variable Screening and Selection}{5}%
+\contentsline {section}{\numberline {6}Seoul Bike Rentals}{8}%
+\contentsline {section}{\numberline {7}Air Quality}{8}%
