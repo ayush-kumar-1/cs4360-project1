@@ -38,7 +38,8 @@ object Wine extends App {
     val Ridge = new RidgeRegression(ox, y) 
     val Lasso = new LassoRegression(ox, y)
     
-    Helper.forwardSelection(MVR, plot = true); 
+    Helper.forwardSelection(MVR, "ForwardRegression", plot = true, "plots/Wine/scala") 
+    Helper.backwardElimination(MVR, "BackwardRegression", plot = false, "plots/Wine/scala"); 
 
 
 } // Wine
