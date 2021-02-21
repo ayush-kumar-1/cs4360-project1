@@ -7,5 +7,10 @@
 \contentsline {subsection}{\numberline {5.1}The Dataset}{1}%
 \contentsline {subsection}{\numberline {5.2}Exploratory Data Analysis}{2}%
 \contentsline {subsection}{\numberline {5.3}Variable Screening and Selection}{5}%
-\contentsline {section}{\numberline {6}Seoul Bike Rentals}{8}%
-\contentsline {section}{\numberline {7}Air Quality}{8}%
+\contentsline {subsection}{\numberline {5.4}Multiple Linear Regression}{7}%
+\contentsline {subsection}{\numberline {5.5}Quadratic Regression}{7}%
+\contentsline {subsection}{\numberline {5.6}Quadratic Regression with Cross Terms}{7}%
+\contentsline {subsection}{\numberline {5.7}Cubic Regression}{7}%
+\contentsline {subsection}{\numberline {5.8}Cubic Regression with Cross Terms}{7}%
+\contentsline {section}{\numberline {6}Seoul Bike Rentals}{7}%
+\contentsline {section}{\numberline {7}Air Quality}{7}%

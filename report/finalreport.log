@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.9.27)  13 FEB 2021 22:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.9.27)  19 FEB 2021 22:50
 entering extended mode
 **./finalreport.tex
 (finalreport.tex
@@ -226,50 +226,32 @@ Overfull \hbox (36.07747pt too wide) in paragraph at lines 59--60
 [][] 
  []
 
-[2 <../plots/Wine/red_wine_Rcormat.png (PNG copy)>]
-<../plots/Wine/white_wine_Rcormat.png, id=14, 1053.9375pt x 722.7pt>
-File: ../plots/Wine/white_wine_Rcormat.png Graphic file (type png)
-<use ../plots/Wine/white_wine_Rcormat.png>
-Package pdftex.def Info: ../plots/Wine/white_wine_Rcormat.png  used on input li
-ne 74.
-(pdftex.def)             Requested size: 526.96747pt x 361.3491pt.
-
-Overfull \hbox (36.07747pt too wide) in paragraph at lines 74--75
-[][] 
- []
-
-[3 <../plots/Wine/white_wine_Rcormat.png (PNG copy)>]
-<../plots/Wine/red_wine_Rscatter.png, id=18, 590.95781pt x 602.25pt>
+[2 <../plots/Wine/red_wine_Rcormat.png (PNG copy)>] [3]
+<../plots/Wine/red_wine_Rscatter.png, id=17, 590.95781pt x 602.25pt>
 File: ../plots/Wine/red_wine_Rscatter.png Graphic file (type png)
 <use ../plots/Wine/red_wine_Rscatter.png>
 Package pdftex.def Info: ../plots/Wine/red_wine_Rscatter.png  used on input lin
-e 89.
+e 76.
 (pdftex.def)             Requested size: 413.66765pt x 421.57211pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 89--91
+Underfull \hbox (badness 10000) in paragraph at lines 76--78
 
  []
 
 [4 <../plots/Wine/red_wine_Rscatter.png>]
-<../plots/Wine/white_wine_Rscatter.png, id=23, 590.95781pt x 602.25pt>
-File: ../plots/Wine/white_wine_Rscatter.png Graphic file (type png)
-<use ../plots/Wine/white_wine_Rscatter.png>
-Package pdftex.def Info: ../plots/Wine/white_wine_Rscatter.png  used on input l
-ine 106.
-(pdftex.def)             Requested size: 413.66765pt x 421.57211pt.
 File: "../R/output/wine/red_forward_selectionR.txt"  (verbatim)
- [5 <../plots/Wine/white_wine_Rscatter.png>] [6]
-<../plots/Wine/qof_plotR.png, id=32, 755.82375pt x 572.89032pt>
+ [5]
+<../plots/Wine/qof_plotR.png, id=26, 755.82375pt x 572.89032pt>
 File: ../plots/Wine/qof_plotR.png Graphic file (type png)
 <use ../plots/Wine/qof_plotR.png>
-Package pdftex.def Info: ../plots/Wine/qof_plotR.png  used on input line 156.
+Package pdftex.def Info: ../plots/Wine/qof_plotR.png  used on input line 136.
 (pdftex.def)             Requested size: 415.70435pt x 315.09064pt.
- [7 <../plots/Wine/qof_plotR.png>] [8] (finalreport.aux) ) 
+ [6] [7 <../plots/Wine/qof_plotR.png>] (finalreport.aux) ) 
 Here is how much of TeX's memory you used:
- 2106 strings out of 492484
- 30856 string characters out of 3130515
- 106422 words of memory out of 3000000
- 6432 multiletter control sequences out of 15000+200000
+ 2094 strings out of 492484
+ 30408 string characters out of 3130515
+ 107422 words of memory out of 3000000
+ 6422 multiletter control sequences out of 15000+200000
  8063 words of font info for 29 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  51i,6n,32p,303b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -281,9 +263,9 @@ ic/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
 17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:
 /Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on finalreport.pdf (8 pages, 296214 bytes).
+Output written on finalreport.pdf (7 pages, 215783 bytes).
 PDF statistics:
- 69 PDF objects out of 1000 (max. 8388607)
+ 63 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

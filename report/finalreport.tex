@@ -68,19 +68,6 @@
 	as free.sulfur.dioxide and total sulfur dioxide. It may be worth our time to standardize some of these 
 	variables to limit collinearity, and this will be considered during variable selection. 
 	
-	\newpage
-	\textbf{ White Wine Correlation Matrix (Plotted with R)}
-	
-	\includegraphics[scale=0.5]{../plots/Wine/white_wine_Rcormat.png}
-
-	
-	Moving on to the white wine dataset, we can see very clearly that the behavior is very different from the collinearity 
-	between variables is quite high for two interactions in specific. The first is between density and residual sugar, the 
-	second is between alcohol and density. Both of these are higher than 0.8, but residual sugar seems to have very little 
-	correlation with our response variables, so it may not end up being an issue after variable selection. The high 
-	correlation between alcohol and density seems to pose a much more substantial issue because both have some 
-	correlation with quality of the wine. We may standardize one or both of these variables during variable 
-	screening, or remove one of them from our regression on the basis of our 4 criterion. 
 	
 	\newpage 
 	
@@ -100,14 +87,7 @@
 	plots. 
 	
 	\newpage
-	
-	\textbf{White Wine Scatter Plots (R)} 
-	
-	\includegraphics[scale=0.7]{../plots/Wine/white_wine_Rscatter.png}
-	
-	We once again see very similar patterns to the first dataset in terms of residual sugar, chlorides, and
-	sulfur dioxide. There does not seem to be anything else out of the ordinary in these scatterplots. Taking 
-	this into account the obvious next step is variable screening and selection. 
+	. 
 
 	\subsection{Variable Screening and Selection}
 	
@@ -161,7 +141,13 @@
 	variables that have weak correlation 
 	
 	
-	\textbf{Variable Selection for White Wine}
+	
+	\subsection{Multiple Linear Regression} 
+	\subsection{Quadratic Regression} 
+	\subsection{Quadratic Regression with Cross Terms} 
+	\subsection{Cubic Regression} 
+	\subsection{Cubic Regression with Cross Terms} 
+	
 	
 	\section{Seoul Bike Rentals}
 	\section{Air Quality}
