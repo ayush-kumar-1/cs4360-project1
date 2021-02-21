@@ -1,12 +1,20 @@
 package regression 
 
+//ScalaTion imports
 import scalation.analytics.{ANCOVA, Regression, QuadRegression, QuadXRegression, 
                             CubicRegression, CubicXRegression, LassoRegression, RidgeRegression}
 import scalation.analytics.PredictorMat
-import scalatoin.analytics.Fit
+import scalation.analytics.Fit
 import scalation.columnar_db.Relation 
-import scalation.linalgebra.{MatriD, MatrixD, VectorD, VectoD}
+import scalation.linalgebra.{MatriD, MatrixD, VectorD, VectoD, VectorI}
+import scalation.plot.Plot
 
+//Scala imports 
+import scala.Console
+import java.io.{File, FileOutputStream}
+
+//other imports 
+import helper.Helper
 
 /**
 * Regression Analysis for winequality dataset. 
@@ -27,33 +35,10 @@ object Wine extends App {
     val QuadX = new QuadXRegression(ox, y) 
     val Cubic = new CubicRegression(ox, y) 
     val CubicX = new CubicXRegression(ox, y) 
+    val Ridge = new RidgeRegression(ox, y) 
+    val Lasso = new LassoRegression(ox, y)
+    
+    Helper.forwardSelection(MVR, plot = true); 
 
-    /**
-    * Takes a given regression, does forward selection all the way through, and 
-    * then optionally plots R^2, adj-R^2, cv-R^2, AIC for all possible models. 
-    * 
-    * @param rg regression to forward select 
-    * @param plot true if plot should be generated
-    * @return optimal regression based on AIC 
-    */
-    def forwardSelection(rg: PredictorMat,  plot = false: Boolean): PredictorMat = {
-        val k: Int = x.dim2
-
-        var selectedVars = scala.collection.mutable.Set(0)
-        var Rsq = new Array[Double](k)
-        var adjRsq = new Array[Double](k)
-        var cvRsq = new Array[Double](k)
-        var AIC = new Array[Double](k)
-        
-        var result: PredictorMat = rg; 
-
-        for (i <- 0 to k) { 
-            var (i, reg) = rg.forwardSel(selectedVars, Fit.index_aic)
-            
-        } //for i 
-
-    } //forwardSelection
-    var zeroSet = scala.collection.mutable.Set(0)
-    println(MVR.forwardSel(zeroSet))
 
 } // Wine
