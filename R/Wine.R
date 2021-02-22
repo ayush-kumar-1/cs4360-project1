@@ -201,8 +201,8 @@ forward_cubicX = step(empty_formula,
                      direction = "forward", trace = FALSE)
 
 
-backward_cubicX = step(full_model_cubicX, 
-                      direction = "backward", trace = FALSE) 
+#backward_cubicX = step(full_model_cubicX, 
+                      # = "backward", trace = FALSE) 
 
 stepwise_cubicX = step(empty_formula, 
                       scope=list(upper = full_model_cubicX), 
