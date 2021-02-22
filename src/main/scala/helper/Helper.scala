@@ -9,6 +9,7 @@ import scalation.columnar_db.Relation
 import scalation.linalgebra.{MatriD, MatrixD, VectorD, VectoD, VectorI}
 import scalation.plot.{Plot, PlotM}
 import scalation.scala2d.VizFrame
+import scala.collection.mutable.ArrayBuffer
 
 //scala imports 
 import scala.Console
@@ -185,12 +186,98 @@ object Helper {
 
     /**
     * Stepwise regression is an improvement over backward elmination and forward selection as it 
-    * considers adding and removing variables at every step. 
+    * considers adding and removing variables at every step. Default QoF measure is aic. 
+    * 
+    * @param cols the columns already included in the model at this point 
+    * @param index_q the index of the quality of fit measure to be used 
+    * @param first the first variable to consider for dropping or adding (default includes intercept)
+    * @param rg the regression to use the stepRegression on 
+    * @return index of column to be added (negtive integer means should be removed) and the 
+    * regression after a single step 
     */
-    def stepRegression (cols: scala.collection.mutable.Set[Int], index_q: Int = Fit.index_aic, 
-        first: Int = 1, rg: PredictorMat): (Int, PredictorMat) = { 
-            
+    def stepRegression (cols: scala.collection.mutable.Set[Int], rg: PredictorMat, index_q: Int = Fit.index_aic, 
+    first: Int = 1): (Int, PredictorMat) = { 
+        //consider forward and backward step 
+        if (cols.size <= 2) { 
+            return rg.forwardSel(cols, index_q)
+        } //if
 
-    }
+        val (i_for, forward) = rg.forwardSel(cols, index_q) 
+        val (i_back, backward) = rg.backwardElim(cols, index_q, first) 
+        //determine which step is best based on index_q
+        val aic_for = forward.fit(index_q)
+        val aic_back = backward.fit(index_q)
+        
+
+        if (aic_for > aic_back || i_back < 0) { 
+            return (i_for, forward)
+        } //if
+
+        return (-i_back, backward)
+    } //stepRegression
+
+    /**
+    * Does stepwise regression until the model can no longer be improved upon. This is behavior is different from 
+    * the forwardSelection and backwardElimantion methods which continue until the quality of fit meausure chosen
+    * no longer improves when variables are added or removed.  
+    * 
+    * @param rg the regression to find the optimal variable set for 
+    * @param index_q the QoF measure to be used (defualt aic) 
+    * @param first the first variable to considered for adding or dropping 
+    * @param cross true if using 10-fold cross validation for QoF measures 
+    * @return the optimal set of paramters, and a matrix with all quality of fit measures for every step
+    */
+    def stepRegressionAll(rg: PredictorMat, index_q: Int = Fit.index_aic, 
+    first: Int = 1, cross: Boolean = true): (scala.collection.mutable.Set[Int], MatriD) = { 
+
+        var cols = scala.collection.mutable.Set(0)
+        
+        //always take the first step 
+        var (i, currentStep): (Int, PredictorMat) = stepRegression(cols, rg, index_q) 
+        var fit = currentStep.fit(index_q)
+        var step_stats: ArrayBuffer[VectoD] = new ArrayBuffer[VectoD]()
+        step_stats += currentStep.fit
+        var counter: Int = 1
+        var output: String = null
+
+        if (i < 0) { 
+            cols -= -i
+            output = s"<== StepRegression: remove (#${counter}) variable ${-i}, qof = $fit"
+        } else { 
+            cols += i
+            output = s"==> StepRegression: add (#${counter}) variable $i, qof = $fit"
+        } //if-else
+        println(output)
+
+        var prev = i 
+
+        
+        for (j <- 0 to rg.getX.dim2 - 3) {
+            counter+= 1
+            var (i, currentStep) = stepRegression(cols, rg, index_q) 
+            var newFit = currentStep.fit(index_q) 
+
+            step_stats += currentStep.fit
+            fit = currentStep.fit(index_q)
+            if (i < 0) { 
+                cols -= -i
+                output = s"<== StepRegression: remove (#${counter}) variable ${-i}, qof = $fit"
+            } else { 
+                cols += i
+                output = s"==> StepRegression: add (#${counter}) variable $i, qof = $fit"
+            } //if-else
+            println(output)
+
+            //check for convergence (removing and adding the same variable) 
+            if (-i == prev) { 
+                return (cols, MatrixD.apply(step_stats.toArray))
+            } //if
+
+            prev = i 
+        } //while
+        
+        return (cols, MatrixD.apply(step_stats.toArray))
+
+    } //stepRegressionAll
 
 } //Helper
