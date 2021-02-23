@@ -1,8 +1,11 @@
+!install.packages("glmnet", "ggplot2", "reshape2")
+
 library(ggplot2)
 library(reshape2)
+library(glmnet)
 source("regression_utils.R")
-
 emissions = read.csv("../data/emissions.csv")
+
 dim(emissions)
 head(emissions)
 
@@ -99,14 +102,34 @@ full_model_quadX  = lm(NOX ~ (AT + AP + AH + AFDP + GTEP + TIT + TAT + TEY + CDP
                         I(TAT^2) + I(TEY^2) + I(CDP^2) + I(CO^2), data = emissions)
 
 forwardQuadX = step(empty_model, 
-     scope=list(upper = full_model_quad), 
+     scope=list(upper = full_model_quadX), 
      direction = "forward")
 
 
-backwardQuadX = step(full_model_quad, 
+backwardQuadX = step(full_model_quadX, 
      direction = "backward") 
 
 stepQuadX = step(empty_model, 
                 scope=list(upper = full_model_quadX), 
                 direction = "both")
+
+### Cubic Model 
+
+full_model_cubic =  lm(NOX ~ AT + AP + AH + AFDP + GTEP + TIT + TAT + TEY + CDP + CO +
+                       I(AT^2) + I(AP^2) + I(AFDP^2) + I(GTEP^2) + I(TIT^2) + 
+                       I(TAT^2) + I(TEY^2) + I(CDP^2) + I(CO^2) + 
+                       I(AT^3) + I(AP^3) + I(AFDP^3) + I(GTEP^3) + I(TIT^3) + 
+                       I(TAT^3) + I(TEY^3) + I(CDP^3) + I(CO^3), data = emissions)
+
+forwardCubic = step(empty_model, 
+                    scope=list(upper = full_model_cubic), 
+                    direction = "forward")
+
+
+backwardCubic = step(full_model_cubic, 
+                     direction = "backward") 
+
+stepCubic = step(empty_model, 
+                 scope=list(upper = full_model_cubic), 
+                 direction = "both")
 

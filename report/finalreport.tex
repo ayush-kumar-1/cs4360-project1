@@ -89,7 +89,7 @@
 	\newpage
 	. 
 
-	\subsection{Variable Screening and Selection}
+	\subsection{Multiple Linear Regression}
 	
 
 	\textbf{Variable Selection for Red Wine} 
@@ -135,6 +135,19 @@
 	
 	\includegraphics[scale=.55]{../plots/Wine/qof_plotR.png}
 	
+	\begin{figure}
+		\caption \newline Graphs for Quality of Fit (Scalation Same Order as R)
+		
+		
+		\includegraphics[scale=0.25]{../plots/Wine/scala/ForwardRegressionRsq.png}
+		\includegraphics[scale=0.25]{../plots/Wine/scala/ForwardRegressionaic.png}
+		
+		
+		\includegraphics[scale=0.25]{../plots/Wine/scala/ForwardRegressionadjRsq.png}
+		\includegraphics[scale=0.25]{../plots/Wine/scala/ForwardRegressioncvRsq.png}
+	\end{figure}
+
+	
 	Here we can see that as we increase the number of variables, we see diminishing marginal improvement in quality of 
 	fit. For measures that penalize model complexity such as $R^2$ and AIC we can even see a light bend towards 
 	the quality of fit worsening as model complexity increases. The diminishing returns can in part be explained by 
@@ -142,8 +155,34 @@
 	
 	
 	
-	\subsection{Multiple Linear Regression} 
 	\subsection{Quadratic Regression} 
+	
+	All linear and quadratic terms were included for forward selection, backward elimination, 
+	and step wise regression in both ScalaTion and R. The optimal models are shown here 
+	in the table alongside the 4 quality of fit measures. $R^2$, $R^2_{cv}$, $\bar R^2$, AIC. 
+	
+	\begin{center}
+	Quadratic Model Table
+	
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		Model & Number of Variables & $R^2$ & $R^2_{cv}$ & $R^2_{adj}$ & AIC \\ 
+		\hline
+		ScalaTion Forward Selection & & & & & \\
+		\hline
+		ScalaTion Backward Elimination & & & & & \\
+		\hline
+		ScalaTion Stepwise Regression & & & & & \\
+		\hline
+		R Forward Selection & 11 & 0.3813 & 0.3725 & 0.377 & 3111.504\\
+		\hline
+		R Backward Elimination & 13 & 0.3843 & 0.3737 & 0.379 & 3107.739\\
+		\hline
+		R Stepwise Regression & 11 & 0.3813 & 0.3725 & 0.377 & 3111.504 \\
+		\hline
+	\end{tabular}
+	\end{center}
+
 	\subsection{Quadratic Regression with Cross Terms} 
 	\subsection{Cubic Regression} 
 	\subsection{Cubic Regression with Cross Terms} 

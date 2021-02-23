@@ -25,113 +25,71 @@ import javax.imageio.ImageIO
 object Helper { 
 
     /**
-    * Takes a given regression, does backwards elmination all the way through, 
-    * and then optionaly plots R^2, adj-R^2, cv-R^2, AIC for all possible models. 
-    * best model is determined by AIC. 
+    * Takes a given regression, does backwards elmination until the 
+    * qoF can no longer be improved upon by removing variables. 
     *
     * @param rg regression for backwardElmination 
-    * @param plot true if plots should be generated 
-    * @param path where the plots should be saved
-    * @param modelName the name of the model 
-    * @return optimal regression based on AIC
+    * @param index_q the index of the qOF measure to use
+    * @return the set of variables in optimal solution, and best model
     */
-    def backwardElimination(rg: PredictorMat, modelName: String, 
-                            plot: Boolean = false, path: String): PredictorMat =  { 
+    def backwardElimination(rg: PredictorMat, index_q: Int = Fit.index_rSqBar): (scala.collection.mutable.Set[Int], PredictorMat) = { 
         val x: MatriD = rg.getX
         val k: Int = x.dim2 - 1
 
         var selectedVars = scala.collection.mutable.Set((0 to k).toArray :_*)
-        var rsq = new Array[Double](k)
-        var adjRsq = new Array[Double](k)
-        var cvRsq = new Array[Double](k)
-        var aic = new Array[Double](k)
-        var bestModel: PredictorMat = null
-        
-        
+        var (toBeRemoved, bestModel) = rg.backwardElim(selectedVars, index_q) 
+        var bestFit = bestModel.fit(index_q)
+        selectedVars -= toBeRemoved
+
         for (i <- 0 to x.dim2 - 3) { 
             val (toBeRemoved, reg) = rg.backwardElim(selectedVars, Fit.index_aic)
-            var qoF= reg.analyze().fit
-            //updating arrays for plotting purposes
-            val fos = new FileOutputStream(new File("./data/Garbage.txt"))
-            Console.withOut(fos) {
-            cvRsq(i) = reg.analyze().crossValidate()(0).mean
-            } //suppressing output
-            adjRsq(i) = qoF(1)
-            rsq(i) = qoF(0)
-            aic(i) = qoF(11)
+            var newFit: Double = reg.fit(index_q)
             
-            if (toBeRemoved >= 0) { 
+            if (newFit > bestFit) {
+                bestModel = reg
                 selectedVars -= toBeRemoved
-            } //if
-
-            if (i == 0) { //first time bestmodel will be none
-                bestModel = reg; 
-            } else if (qoF(11) < bestModel.analyze().fit(11)) { 
-                bestModel = reg; 
-            } //elif
+                bestFit = newFit
+            } else { 
+                return (selectedVars, bestModel)
+            } //else
 
         } //for i 
-
-        if (plot) { 
-            plotQoF(rsq.reverse, adjRsq.reverse, cvRsq.reverse, aic.reverse, modelName, path)
-        } //plot
-        
-        return bestModel
+        return (selectedVars, bestModel)
 
     } //backwardElmination
 
     /**
-    * Takes a given regression, does forward selection all the way through, and 
-    * then optionally plots R^2, adj-R^2, cv-R^2, AIC for all possible models. Best
-    * model is determined by lowest AIC. 
+    * Takes a given regression, does forward selection until the QoF measure is 
+    * no longer improved by the addition of another variable and then adds it in. 
     * 
     * @param rg regression to forward select 
-    * @param plot true if plot should be generated
-    * @param path where the plots should be saved
+    * @param index_q the index to be used for forward selection 
     * @return optimal regression based on AIC 
     */
-    def forwardSelection(rg: PredictorMat, modelName: String, plot: Boolean = false, path: String = null): PredictorMat = {
+    def forwardSelection(rg: PredictorMat, index_q: Int = Fit.index_aic): (scala.collection.mutable.Set[Int], PredictorMat) = {
         val x: MatriD = rg.getX
         val k: Int = x.dim2 - 1
 
-        var selectedVars = scala.collection.mutable.Set(0)
-        var rsq = new Array[Double](k)
-        var adjRsq = new Array[Double](k)
-        var cvRsq = new Array[Double](k)
-        var aic = new Array[Double](k)
-        var bestModel: PredictorMat = null
+        var selectedVars = scala.collection.mutable.Set(0)   
+        var (toBeAdded, bestModel) = rg.forwardSel(selectedVars, index_q)
+        var bestFit: Double = bestModel.fit(index_q)
+        selectedVars += toBeAdded
+
         
-        
-        for (i <- 0 to x.dim2 - 2) { 
-            val (toBeAdded, reg) = rg.forwardSel(selectedVars, Fit.index_aic)
-            var qoF= reg.analyze().fit
-            //updating arrays for plotting purposes
-            val fos = new FileOutputStream(new File("./data/Garbage.txt"))
-            Console.withOut(fos) {
-            cvRsq(i) = reg.analyze().crossValidate()(0).mean
-            } //suppressing output
-            adjRsq(i) = qoF(1)
-            rsq(i) = qoF(0)
-            aic(i) = qoF(11)
-            
-            if (toBeAdded >= 0) { 
+        //Maximum Iterations involves adding all the elements 
+        for (i <- 0 to x.dim2 - 3) { 
+            val (toBeAdded, reg) = rg.forwardSel(selectedVars, index_q)
+            var newFit: Double = reg.fit(index_q)
+            if (newFit > bestFit) { 
+                bestModel = reg
                 selectedVars += toBeAdded
-            } //if
-
-            if (i == 0) { //first time bestmodel will be none
-                bestModel = reg; 
-            } else if (qoF(11) < bestModel.analyze().fit(11)) { 
-                bestModel = reg; 
-            } //elif
-
+                bestFit = newFit
+            } else {
+                return (selectedVars, bestModel)
+            } //else         
         } //for i 
-
-        if (plot) { 
-            plotQoF(rsq, adjRsq, cvRsq, aic, modelName, path)
-        } //plot
-
-        return bestModel
-
+        return (selectedVars, bestModel)
+        
     } //forwardSelection
 
     /**
@@ -252,7 +210,7 @@ object Helper {
         var prev = i 
 
         
-        for (j <- 0 to rg.getX.dim2 - 3) {
+        for (j <- 0 to rg.getX.dim2 - 4) {
             counter+= 1
             var (i, currentStep) = stepRegression(cols, rg, index_q) 
             var newFit = currentStep.fit(index_q) 
@@ -270,6 +228,7 @@ object Helper {
 
             //check for convergence (removing and adding the same variable) 
             if (-i == prev) { 
+                cols += -i
                 return (cols, MatrixD.apply(step_stats.toArray))
             } //if
 

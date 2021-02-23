@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.9.27)  19 FEB 2021 22:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.9.27)  22 FEB 2021 21:56
 entering extended mode
 **./finalreport.tex
 (finalreport.tex
@@ -226,8 +226,8 @@ Overfull \hbox (36.07747pt too wide) in paragraph at lines 59--60
 [][] 
  []
 
-[2 <../plots/Wine/red_wine_Rcormat.png (PNG copy)>] [3]
-<../plots/Wine/red_wine_Rscatter.png, id=17, 590.95781pt x 602.25pt>
+[2 <../plots/Wine/red_wine_Rcormat.png (PNG copy)>]
+<../plots/Wine/red_wine_Rscatter.png, id=14, 590.95781pt x 602.25pt>
 File: ../plots/Wine/red_wine_Rscatter.png Graphic file (type png)
 <use ../plots/Wine/red_wine_Rscatter.png>
 Package pdftex.def Info: ../plots/Wine/red_wine_Rscatter.png  used on input lin
@@ -238,34 +238,63 @@ Underfull \hbox (badness 10000) in paragraph at lines 76--78
 
  []
 
-[4 <../plots/Wine/red_wine_Rscatter.png>]
+[3 <../plots/Wine/red_wine_Rscatter.png>]
 File: "../R/output/wine/red_forward_selectionR.txt"  (verbatim)
- [5]
-<../plots/Wine/qof_plotR.png, id=26, 755.82375pt x 572.89032pt>
+ [4]
+<../plots/Wine/qof_plotR.png, id=23, 755.82375pt x 572.89032pt>
 File: ../plots/Wine/qof_plotR.png Graphic file (type png)
 <use ../plots/Wine/qof_plotR.png>
 Package pdftex.def Info: ../plots/Wine/qof_plotR.png  used on input line 136.
 (pdftex.def)             Requested size: 415.70435pt x 315.09064pt.
- [6] [7 <../plots/Wine/qof_plotR.png>] (finalreport.aux) ) 
+<../plots/Wine/scala/ForwardRegressionRsq.png, id=24, 702.625pt x 702.625pt>
+File: ../plots/Wine/scala/ForwardRegressionRsq.png Graphic file (type png)
+<use ../plots/Wine/scala/ForwardRegressionRsq.png>
+Package pdftex.def Info: ../plots/Wine/scala/ForwardRegressionRsq.png  used on 
+input line 142.
+(pdftex.def)             Requested size: 175.6558pt x 175.6558pt.
+<../plots/Wine/scala/ForwardRegressionaic.png, id=26, 702.625pt x 702.625pt>
+File: ../plots/Wine/scala/ForwardRegressionaic.png Graphic file (type png)
+<use ../plots/Wine/scala/ForwardRegressionaic.png>
+Package pdftex.def Info: ../plots/Wine/scala/ForwardRegressionaic.png  used on 
+input line 143.
+(pdftex.def)             Requested size: 175.6558pt x 175.6558pt.
+<../plots/Wine/scala/ForwardRegressionadjRsq.png, id=27, 702.625pt x 702.625pt>
+
+File: ../plots/Wine/scala/ForwardRegressionadjRsq.png Graphic file (type png)
+<use ../plots/Wine/scala/ForwardRegressionadjRsq.png>
+Package pdftex.def Info: ../plots/Wine/scala/ForwardRegressionadjRsq.png  used 
+on input line 146.
+(pdftex.def)             Requested size: 175.6558pt x 175.6558pt.
+<../plots/Wine/scala/ForwardRegressioncvRsq.png, id=28, 702.625pt x 702.625pt>
+File: ../plots/Wine/scala/ForwardRegressioncvRsq.png Graphic file (type png)
+<use ../plots/Wine/scala/ForwardRegressioncvRsq.png>
+Package pdftex.def Info: ../plots/Wine/scala/ForwardRegressioncvRsq.png  used o
+n input line 147.
+(pdftex.def)             Requested size: 175.6558pt x 175.6558pt.
+ [5] [6 <../plots/Wine/scala/ForwardRegressionRsq.png> <../plots/Wine/scala/For
+wardRegressionaic.png> <../plots/Wine/scala/ForwardRegressionadjRsq.png> <../pl
+ots/Wine/scala/ForwardRegressioncvRsq.png> <../plots/Wine/qof_plotR.png>] [7] (
+finalreport.aux) ) 
 Here is how much of TeX's memory you used:
- 2094 strings out of 492484
- 30408 string characters out of 3130515
+ 2119 strings out of 492484
+ 31510 string characters out of 3130515
  107422 words of memory out of 3000000
- 6422 multiletter control sequences out of 15000+200000
+ 6442 multiletter control sequences out of 15000+200000
  8063 words of font info for 29 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 51i,6n,32p,303b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
-17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:
-/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on finalreport.pdf (7 pages, 215783 bytes).
+ 51i,8n,32p,303b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pf
+b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmtt10.pfb>
+Output written on finalreport.pdf (7 pages, 248202 bytes).
 PDF statistics:
- 63 PDF objects out of 1000 (max. 8388607)
+ 76 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
