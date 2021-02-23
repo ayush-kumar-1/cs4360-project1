@@ -6,7 +6,7 @@ import scalation.analytics.{ANCOVA, Regression, QuadRegression, QuadXRegression,
 import scalation.analytics.PredictorMat
 import scalation.analytics.Fit
 import scalation.columnar_db.Relation 
-import scalation.linalgebra.{MatriD, MatrixD, VectorD, VectoD, VectorI}
+import scalation.linalgebra.{MatriD, MatrixD, VectorD, VectoD}
 import scalation.plot.Plot
 import scalation.util.banner
 
