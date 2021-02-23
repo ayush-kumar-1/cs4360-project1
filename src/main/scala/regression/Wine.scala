@@ -57,6 +57,7 @@ object Wine extends App {
     
     banner("Quadratic Model")
 
+    /*
     var (backRegQuad, backRegQ) = Helper.backwardElimination(Quad, index_q = Fit.index_rSqBar)
     println(backRegQuad)
     
@@ -80,17 +81,19 @@ object Wine extends App {
     println(stepRegQuadX)
     
     banner("Cubic Model")
+    */
 
-    //var (backRegCubic, backRegC) = Helper.backwardElimination(Cubic, index_q = Fit.index_rSqBar)
-    //println(backRegCubic)
-    
+    var (backRegCubic, backRegC) = Cubic.backwardElimAll()
+    println(backRegCubic)
+    println(backRegC)
+
     var (forRegCubic, forRegC) = Helper.forwardSelection(Cubic, index_q = Fit.index_rSqBar)
     println(forRegCubic)
     
     var (stepRegCubic, stepRegC) = Helper.stepRegressionAll(Cubic, index_q = Fit.index_rSqBar, suppressOutput = true)
     println(stepRegCubic)
 
-    
+    /*
     banner("Cubic Model with Cross Term")
 
     //var (backRegCubicX, backRegCX) = Helper.backwardElimination(CubicX, index_q = Fit.index_rSqBar)
@@ -101,5 +104,6 @@ object Wine extends App {
     
     var (stepRegCubicX, stepRegCX) = Helper.stepRegressionAll(CubicX, index_q = Fit.index_rSqBar, suppressOutput = false)
     println(stepRegCubicX)
+    */
 
 } // Wine
