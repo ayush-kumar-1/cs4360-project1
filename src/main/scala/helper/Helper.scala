@@ -183,10 +183,11 @@ object Helper {
     * @param index_q the QoF measure to be used (defualt aic) 
     * @param first the first variable to considered for adding or dropping 
     * @param cross true if using 10-fold cross validation for QoF measures 
+    * @param suppressOutput if true displays single line for every inseration or deletion
     * @return the optimal set of paramters, and a matrix with all quality of fit measures for every step
     */
     def stepRegressionAll(rg: PredictorMat, index_q: Int = Fit.index_aic, 
-    first: Int = 1, cross: Boolean = true): (scala.collection.mutable.Set[Int], MatriD) = { 
+    first: Int = 1, cross: Boolean = true, suppressOutput: Boolean = false): (scala.collection.mutable.Set[Int], MatriD) = { 
 
         var cols = scala.collection.mutable.Set(0)
         
@@ -205,7 +206,10 @@ object Helper {
             cols += i
             output = s"==> StepRegression: add (#${counter}) variable $i, qof = $fit"
         } //if-else
-        println(output)
+
+        if (!suppressOutput) { 
+            println(output)
+        } //if
 
         var prev = i 
 
@@ -218,17 +222,20 @@ object Helper {
             step_stats += currentStep.fit
             fit = currentStep.fit(index_q)
             if (i < 0) { 
-                cols -= -i
+                cols -= (-i).abs
                 output = s"<== StepRegression: remove (#${counter}) variable ${-i}, qof = $fit"
             } else { 
                 cols += i
                 output = s"==> StepRegression: add (#${counter}) variable $i, qof = $fit"
             } //if-else
-            println(output)
+
+            if (!suppressOutput) { 
+                println(output)
+            } //if
 
             //check for convergence (removing and adding the same variable) 
             if (-i == prev) { 
-                cols += -i
+                cols += (-i).abs
                 return (cols, MatrixD.apply(step_stats.toArray))
             } //if
 

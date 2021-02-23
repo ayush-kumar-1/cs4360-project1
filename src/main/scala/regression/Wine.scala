@@ -46,40 +46,60 @@ object Wine extends App {
     
     var (backRegMVR, backReg) = Helper.backwardElimination(MVR, index_q = Fit.index_rSqBar)
     println(backRegMVR)
-    println(backRegMatrix)
-    var (forRegMVR, forRegMatrix) = Helper.forwardSelection(MVR, index_q = Fit.index_rSqBar)
+    
+    var (forRegMVR, forReg) = Helper.forwardSelection(MVR, index_q = Fit.index_rSqBar)
     //MVR.forwardSelAll(cross = false, index_q = Fit.index_rSqBar)
     println(forRegMVR)
-    println(forRegMatrix)
-    var (stepRegMVR, stepRegMatrix) = Helper.stepRegressionAll(MVR, index_q = Fit.index_rSqBar)
-    println(stepRegMVR)
-    println(stepRegMatrix(Fit.index_rSqBar))
     
+    var (stepRegMVR, stepReg) = MVR.stepRegressionAll()
+    println(stepRegMVR, stepReg)
+        
     
     banner("Quadratic Model")
 
+    var (backRegQuad, backRegQ) = Helper.backwardElimination(Quad, index_q = Fit.index_rSqBar)
+    println(backRegQuad)
     
-    var (backRegQuad, _) = Quad.backwardElimAll(cross = false, index_q = Fit.index_rSqBar)
-    var (forRegQuad, _) = Quad.forwardSelAll(cross = false, index_q = Fit.index_rSqBar)
-    var (stepRegQuad, _) = Helper.stepRegressionAll(QuadX, index_q = Fit.index_rSqBar)
-    /* 
+    var (forRegQuad, forRegQ) = Helper.forwardSelection(Quad, index_q = Fit.index_rSqBar)
+    //MVR.forwardSelAll(cross = false, index_q = Fit.index_rSqBar)
+    println(forRegQuad)
+    
+    var (stepRegQuad, stepRegQ) = Helper.stepRegressionAll(Quad, index_q = Fit.index_rSqBar, suppressOutput = true)
+    println(stepRegQuad)
+    
+    
     banner("Quadratic Model with Cross-Term")
 
-    var (backRegQuadX, _) = Quad.backwardElimAll(cross = false, index_q = Fit.index_rSqBar)     
-    var (forRegQuadX, _) = Quad.forwardSelAll(cross = false, index_q = Fit.index_rSqBar)
-    var (stepRegQuadX, _) = Helper.stepRegressionAll(QuadX, index_q = Fit.index_rSqBar)
+    var (backRegQuadX, backRegQX) = Helper.backwardElimination(QuadX, index_q = Fit.index_rSqBar)
+    println(backRegQuadX)
+    
+    var (forRegQuadX, forRegQX) = Helper.forwardSelection(QuadX, index_q = Fit.index_rSqBar)
+    println(forRegQuadX)
+    
+    var (stepRegQuadX, stepRegQX) = Helper.stepRegressionAll(QuadX, index_q = Fit.index_rSqBar, suppressOutput = true)
+    println(stepRegQuadX)
     
     banner("Cubic Model")
 
-    var (backRegCubic, _) = Cubic.backwardElimAll(cross = false, index_q = Fit.index_rSqBar)
-    var (forRegCubic, _) = Cubic.forwardSelAll(cross = false, index_q = Fit.index_rSqBar)
-    var (stepRegCubic, _) = Helper.stepRegressionAll(Cubic, index_q = Fit.index_rSqBar)
+    //var (backRegCubic, backRegC) = Helper.backwardElimination(Cubic, index_q = Fit.index_rSqBar)
+    //println(backRegCubic)
+    
+    var (forRegCubic, forRegC) = Helper.forwardSelection(Cubic, index_q = Fit.index_rSqBar)
+    println(forRegCubic)
+    
+    var (stepRegCubic, stepRegC) = Helper.stepRegressionAll(Cubic, index_q = Fit.index_rSqBar, suppressOutput = true)
+    println(stepRegCubic)
 
+    
     banner("Cubic Model with Cross Term")
 
-    var (backRegCubicX, _) = CubicX.backwardElimAll(cross = false, index_q = Fit.index_rSqBar)
-    var (forRegCubicX, _) = CubicX.forwardSelAll(cross = false, index_q = Fit.index_rSqBar)
-    var (stepRegCubicX, _) = Helper.stepRegressionAll(CubicX, index_q = Fit.index_rSqBar)
-    */
+    //var (backRegCubicX, backRegCX) = Helper.backwardElimination(CubicX, index_q = Fit.index_rSqBar)
+    //println(backRegCubicX)
+    
+    var (forRegCubicX, forRegCX) = Helper.forwardSelection(CubicX, index_q = Fit.index_rSqBar)
+    println(forRegCubicX)
+    
+    var (stepRegCubicX, stepRegCX) = Helper.stepRegressionAll(CubicX, index_q = Fit.index_rSqBar, suppressOutput = false)
+    println(stepRegCubicX)
 
 } // Wine
