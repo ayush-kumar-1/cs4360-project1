@@ -136,15 +136,18 @@
 	\includegraphics[scale=.55]{../plots/Wine/qof_plotR.png}
 	
 	\begin{figure}
-		\caption \newline Graphs for Quality of Fit (Scalation Same Order as R)
+	\begin{center}
+
+
+		\caption \newline Graphs for Quality of Fit (Backward, Forward, Stepwise)
 		
 		
-		\includegraphics[scale=0.25]{../plots/Wine/scala/ForwardRegressionRsq.png}
-		\includegraphics[scale=0.25]{../plots/Wine/scala/ForwardRegressionaic.png}
+		\includegraphics[scale=0.25]{../plots/Wine/Scala/MultipleLinearRegressionForwardSel.png}
+		\includegraphics[scale=0.25]{../plots/Wine/Scala/MultipleLinearRegressionBackElim.png}
 		
 		
-		\includegraphics[scale=0.25]{../plots/Wine/scala/ForwardRegressionadjRsq.png}
-		\includegraphics[scale=0.25]{../plots/Wine/scala/ForwardRegressioncvRsq.png}
+		\includegraphics[scale=0.25]{../plots/Wine/Scala/MultipleLinearRegressionStepReg.png}
+	\end{center}
 	\end{figure}
 
 	
@@ -160,30 +163,46 @@
 	All linear and quadratic terms were included for forward selection, backward elimination, 
 	and step wise regression in both ScalaTion and R. The optimal models are shown here 
 	in the table alongside the 4 quality of fit measures. $R^2$, $R^2_{cv}$, $\bar R^2$, AIC. 
-	
+			
+	\begin{figure}
 	\begin{center}
-	Quadratic Model Table
-	
-	\begin{tabular}{|c|c|c|c|c|c|}
-		\hline
-		Model & Number of Variables & $R^2$ & $R^2_{cv}$ & $R^2_{adj}$ & AIC \\ 
-		\hline
-		ScalaTion Forward Selection & & & & & \\
-		\hline
-		ScalaTion Backward Elimination & & & & & \\
-		\hline
-		ScalaTion Stepwise Regression & & & & & \\
-		\hline
-		R Forward Selection & 11 & 0.3813 & 0.3725 & 0.377 & 3111.504\\
-		\hline
-		R Backward Elimination & 13 & 0.3843 & 0.3737 & 0.379 & 3107.739\\
-		\hline
-		R Stepwise Regression & 11 & 0.3813 & 0.3725 & 0.377 & 3111.504 \\
-		\hline
-	\end{tabular}
+
+
+		\caption \newline Graphs for Quality for Fit (Wine Quadratic)
+		
+		\includegraphics[scale=0.25]{../plots/Wine/Scala/QuadraticRegressionForwardSel.png}
+		\includegraphics[scale=0.25]{../plots/Wine/Scala/QuadraticRegressionBackElim.png}
+		
+		
+		\includegraphics[scale=0.25]{../plots/Wine/Scala/QuadraticRegressionStepReg.png}
 	\end{center}
+	\end{figure}
+
+	Here we can see that as we begin to increase the complexity of the model past a certain 
+	point that it begins to over-fit which results in the $R^2$ and $adj-R^2$ to continue 
+	increasing, but when we cross=validate the $R^2$ is substantially lower. This is a 
+	problem. 
 
 	\subsection{Quadratic Regression with Cross Terms} 
+	\begin{figure}
+	\begin{center}
+		
+		\caption \newline Graphs for Quality for Fit (Wine Quadratic-Cross)
+		
+		\includegraphics[scale=0.25]{../plots/Wine/Scala/QuadraticCrossRegressionForwardSel.png}
+		\includegraphics[scale=0.25]{../plots/Wine/Scala/QuadraticCrossRegressionBackElim.png}
+		
+		
+		\includegraphics[scale=0.25]{../plots/Wine/Scala/QuadraticCrossRegressionStepReg.png}
+	\end{center}
+	\end{figure}
+
+	The effect of the drop in $R^2_{cv}$ and the non-cross validated measures show 
+	that increasing the number of variables results in models that are severely over fit. 
+	By using the Stepwise regression we can see that as soon as the non-cross validated 
+	measures start to decline we should stop adding more variables to maintain a model useful 
+	outside of the training dataset. 
+	
 	\subsection{Cubic Regression} 
 	\subsection{Cubic Regression with Cross Terms} 
 	

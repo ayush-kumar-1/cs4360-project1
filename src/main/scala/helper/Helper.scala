@@ -32,7 +32,7 @@ object Helper {
     * @param index_q the index of the qOF measure to use
     * @return the set of variables in optimal solution, and best model
     */
-    def backwardElimination(rg: PredictorMat, index_q: Int = Fit.index_rSqBar): (scala.collection.mutable.Set[Int], PredictorMat) = { 
+    def backwardElimination(rg: PredictorMat, index_q: Int = Fit.index_rSqBar): PredictorMat = { 
         val x: MatriD = rg.getX
         val k: Int = x.dim2 - 1
 
@@ -50,11 +50,11 @@ object Helper {
                 selectedVars -= toBeRemoved
                 bestFit = newFit
             } else { 
-                return (selectedVars, bestModel)
+                return (bestModel)
             } //else
 
         } //for i 
-        return (selectedVars, bestModel)
+        return (bestModel)
 
     } //backwardElmination
 
@@ -66,7 +66,7 @@ object Helper {
     * @param index_q the index to be used for forward selection 
     * @return optimal regression based on AIC 
     */
-    def forwardSelection(rg: PredictorMat, index_q: Int = Fit.index_aic): (scala.collection.mutable.Set[Int], PredictorMat) = {
+    def forwardSelection(rg: PredictorMat, index_q: Int = Fit.index_rSqBar): PredictorMat = {
         val x: MatriD = rg.getX
         val k: Int = x.dim2 - 1
 
@@ -85,12 +85,13 @@ object Helper {
                 selectedVars += toBeAdded
                 bestFit = newFit
             } else {
-                return (selectedVars, bestModel)
+                return (bestModel)
             } //else         
         } //for i 
-        return (selectedVars, bestModel)
+        return (bestModel)
         
     } //forwardSelection
+
 
     /**
     * Plots the 4 Quality of Fit measures used for the backwards elmination, 
