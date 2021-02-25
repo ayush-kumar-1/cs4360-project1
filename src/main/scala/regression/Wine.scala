@@ -39,8 +39,14 @@ object Wine extends App {
     val MVR = new Regression(ox,y) 
     val Quad = new QuadRegression(x,y)
     val QuadX = new QuadXRegression(x, y) 
-    val Cubic = new CubicRegression(x, y) 
-    val CubicX = new CubicXRegression(x, y) 
+    
+    //val CubicX = new Regression(Helper.reduce_coll(new CubicXRegression(x, y)), y)
+    val cx  = Helper.reduce_coll(new Regression(x, y), threshold = 2)
+    val Cubic = new CubicRegression(cx, y)
+    val CubicX = new CubicXRegression(cx, y)
+    
+    //val Cubic = new CubicRegression(Helper.reduce_coll(new Regression(x, y)), y) 
+    //val CubicX = new CubicXRegression(Helper.reduce_coll(new Regression(x, y)), y) 
     
     val Ridge = new RidgeRegression(x_c, y_c) 
     val Lasso = new LassoRegression(x_c, y_c)
@@ -55,7 +61,7 @@ object Wine extends App {
     var (forwardC, backwardC, stepwiseC) = run_model(Cubic, "CubicRegression")
     var (forwardCX, backwardCX, stepwiseCX) = run_model(CubicX, "CubicCrossRegression")
 
-
+    
     banner("Multiple Linear Regression")
     println(s"Forward: ${forward.fitMap} \n\nBackward: ${backward.fitMap} \n\nStepwise: ${stepwise.analyze().fitMap}")
     banner("Quadratic Regresssion")
@@ -74,6 +80,7 @@ object Wine extends App {
 
     banner("Lasso Regression")
     println(Lasso.analyze().summary)
+    
 
     /**
     * Does forward selection, backward elimination and stepwise regression 

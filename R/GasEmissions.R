@@ -1,5 +1,3 @@
-!install.packages("glmnet", "ggplot2", "reshape2")
-
 library(ggplot2)
 library(reshape2)
 library(glmnet)
@@ -10,7 +8,20 @@ dim(emissions)
 head(emissions)
 
 plot_cormat(emissions)
+### Ridge and Lasso Regression 
+x = model.matrix(NOX ~ ., data = emissions)
+y = emissions$NOX
+### Finding the optimal lambda 
+lasso_lambda = cv.glmnet(x, y, alpha = 1)$lambda.min
+ridge_lambda = cv.glmnet(x, y, alpha = 0)$lambda.min
 
+ridge = glmnet(x, y, alpha = 0, lambda = ridge_lambda)
+lasso = glmnet(x, y, alpha = 1, lamdda = lasso_lambda)
+
+coef(ridge)
+coef(lasso)
+
+###Mutiple Linear Regression
 full_model = lm(NOX ~ AT + AP + AH + AFDP + GTEP + TIT + TAT +
                 TEY + CDP + CO, data = emissions)
 

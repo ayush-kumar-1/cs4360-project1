@@ -92,6 +92,32 @@ object Helper {
         
     } //forwardSelection
 
+    /**
+    * Takes a regression, and boots out all variables that have a VIF greater than 10 
+    * intended for use with Cubic and CubicX regressions. Do not include the bias variable 
+    * (The Intercept).
+    * 
+    * @param model to reduce colinearity 
+    * @param threshold the VIF threshold above which variables will be removed 
+    * @return new x matrix with reduced collinearity 
+    */
+    def reduce_coll (model: PredictorMat, threshold: Double = 10): MatriD =  { 
+        
+        var x = model.getX
+        val y = model.getY
+
+        println(x.dim2)
+        var cols = scala.collection.mutable.SortedSet(Array.range(0, x.dim2) :_* )
+        var vif = model.vif()
+        var filter: Array[Int] = vif.filterPos((d: Double) => d <= threshold).toArray
+        println(vif)
+        x = x.selectCols(filter)
+
+        println(x.dim2)
+        return x
+    } //reduce_coll
+
+
 
     /**
     * Plots the 4 Quality of Fit measures used for the backwards elmination, 

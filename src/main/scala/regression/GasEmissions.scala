@@ -12,6 +12,7 @@ import scalation.util.banner
 
 //Scala imports 
 import scala.Console
+import scala.collection.mutable.Set
 import java.io.{File, FileOutputStream}
 
 //other imports 
@@ -35,8 +36,10 @@ object GasEmissions extends App {
     val MVR = new Regression(ox,y) 
     val Quad = new QuadRegression(x,y)
     val QuadX = new QuadXRegression(x, y) 
-    val Cubic = new CubicRegression(x, y) 
-    val CubicX = new CubicXRegression(x, y) 
+
+    //Due to high collinearity these models are built with a small portion of the columns of x
+    val Cubic = new CubicRegression(Helper.reduce_coll(new Regression(x, y)), y) 
+    val CubicX = new CubicXRegression(Helper.reduce_coll(new Regression(x, y)), y) 
     
     val Ridge = new RidgeRegression(x_c, y_c) 
     val Lasso = new LassoRegression(x_c, y_c)
@@ -50,7 +53,6 @@ object GasEmissions extends App {
     var (forwardQX, backwardQX, stepwiseQX) = run_model(QuadX, "QuadraticCrossRegression")
     var (forwardC, backwardC, stepwiseC) = run_model(Cubic, "CubicRegression")
     var (forwardCX, backwardCX, stepwiseCX) = run_model(CubicX, "CubicCrossRegression")
-
 
     banner("Multiple Linear Regression")
     println(s"Forward: ${forward.fitMap} \n\nBackward: ${backward.fitMap} \n\nStepwise: ${stepwise.analyze().fitMap}")
@@ -67,9 +69,11 @@ object GasEmissions extends App {
 
     Ridge.findLambda
     println(Ridge.analyze().summary)
-
+    
     banner("Lasso Regression")
     println(Lasso.analyze().summary)
+
+
 
     /**
     * Does forward selection, backward elimination and stepwise regression 

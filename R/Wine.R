@@ -1,5 +1,6 @@
-library(ggplot2)
+library(ggplot)
 library(reshape2)
+library(glmnet)
 source("regression_utils.R")
 
 red_wine = read.csv("../data/WineQuality/winequality-red.csv", sep = ";")
@@ -15,6 +16,19 @@ plot_cormat(red_wine)
 
 scatter(red_wine, "quality", col = 3, row = 4)
 
+
+### Ridge and Lasso Regression 
+x = model.matrix(quality ~ ., data = red_wine)
+y = red_wine$quality
+### Finding the optimal lambda 
+lasso_lambda = cv.glmnet(x, y, alpha = 1)$lambda.min
+ridge_lambda = cv.glmnet(x, y, alpha = 0)$lambda.min
+
+ridge = glmnet(x, y, alpha = 0, lambda = ridge_lambda)
+lasso = glmnet(x, y, alpha = 1, lamdda = lasso_lambda)
+
+coef(ridge)
+coef(lasso)
 ###feature selection
 #feature selection using forward selection
 full_formula = lm(quality ~ ., data = red_wine) 
