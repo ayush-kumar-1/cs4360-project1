@@ -6,22 +6,84 @@
 \usepackage{graphicx}
 \usepackage{verbatim}
 
-\title{CSCI 4360 Data Science II Project I}
-\author{Ayush Kumar, Faisal Hoissain, Brandon Amirouche}
-\date{February 23, 2021}
+\title{CSCI 4360 Data Science II \protect\\ Project I}
+\author{Ayush Kumar, Brandon Amirouche, Faisal Hossain}
+\date{February 24, 2021}
 
 \begin{document} 
 	
 	\maketitle
 	\tableofcontents
-	
+	\newpage
+
+
 	\section{Introduction and Methodology}
+
+
 	\subsection{Code Credits}
+
+
 	\section{Auto-MPG}
+
+
 	\section{Concrete Compressive Strength} 
+
+	\subsection{The Dataset}
+
+	The concrete compressive strength is a highly nonlinear function of age and ingredients used to determine the quality 
+	of concrete. These ingredients include cement, blast furnace slag, fly ash, water, superplasticizer, coarse aggregate, 
+	and fine aggregate. The Concrete Compressive Strength Data Set has 1,030 observations with a total of 9 attributes - 8 
+	quantitative input variables, and 1 quantitative output variable. The data file can be found in the the data/ConcreteCompressiveStrength 
+	folder, and were orignally downloaded from the UCI Machine Learning The dataset has the following variables: 
+	
+	\begin{enumerate}
+		\item Cement (kg in a m3 mixture)
+		\item Blast Furnace Slag (kg in a m3 mixture)
+		\item Fly Ash (kg in a m3 mixture)
+		\item Water (kg in a m3 mixture)
+		\item Superplasticizer (kg in a m3 mixture)
+		\item Coarse Aggregate (kg in a m3 mixture)
+		\item Fine Aggregate (kg in a m3 mixture)
+		\item Age (Day 1$\sim$365)
+		\item Concrete (MPa) - the response variable
+	\end{enumerate}
+	
+	\subsection{Exploratory Data Analysis}
+	During Exploratory Data Analysis (EDA), the value of y is plotted against each feature/column x:j of data matrix X 
+	in order to understand the data and gain insights from the data. A correlation matrix is used to check the correlations 
+	between the input features.
+	
+	\textbf{ Concrete Compressive Strength Correlation Matrix (Plotted with R)}
+	
+	\includegraphics[scale=0.7]{../plots/ConcreteCompressiveStrength/concrete-corr.png}
+
+	From the Concrete Compressive Strength Correlation Matrix (Figure 1) we can visually check for features that have 
+	fairly strong correlations with the response variable and each other. We can observe a high positive correlation 
+	between Cement and the response variable, Concrete Compressive Strength. Age and Super Plasticizer are two other 
+	factors influencing Concrete Compressive Strength. Additionally by observing between features, we can see a strong 
+	negative correlation between Super Plasticizer and Water; and a strong correlation between Super Plasticizer and Fly 
+	Ash, Fine Aggregate. Eliminating redundant variables or irrelevant variables may limit collinearity, reduce loss in 
+	our accuracy, and increase efficiency in our model.	
+
+	\newpage 
+
+	\textbf{ Concrete Compressive Strength Scatter Plots (Plotted with R)}
+	
+	\includegraphics[scale=0.55]{../plots/ConcreteCompressiveStrength/concrete-scatter.png}
+	
+	Using the scatters plots of Concrete Compressive (Figure 2) we can observe the relationships and identify patterns 
+	between features. From the scatter plots, we observe that Concrete Compressive Strength increases as the amount of 
+	cement increases, water decreases, and age increases.
+
+	\subsection{Variable Screening and Selection}
+	
+	\textbf{Variable Selection for Concrete Compressive Strength} 
+
+
 	\section{Crime}
+
+
 	\section{Wine Quality}
-	\subsection{The Dataset} 
 	
 	The wine quality data is actually two datasets, one for red wine and the other for white 
 	wine. Both of them have the same 11 features, but there may be differences in the features 
