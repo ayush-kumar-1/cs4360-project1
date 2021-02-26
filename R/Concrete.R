@@ -6,12 +6,15 @@
 ## ---------------------------
 
 ## Import Libraries
+library(ggplot)
+library(glmnet)
 library(olsrr)
 source("regression_utils.R")
 
 ## Read Datasets
 concrete = read.csv("../data/ConcreteCompressiveStrength/Concrete_Data.csv", sep = ",", header=TRUE)
-colnames(concrete) <- c("Cement", "Blast_Furnace_Slag", "Fly_Ash", "Water", "Superplasticizer", "Coarse_Aggregate", "Fine_Aggregate", "Age", "Concrete_Compressive_Strength")
+colnames(concrete) <- c("Cement", "Blast_Furnace_Slag", "Fly_Ash", "Water", "Superplasticizer",
+                        "Coarse_Aggregate", "Fine_Aggregate", "Age", "Concrete_Compressive_Strength")
 head(concrete)
 
 ## Exploratory Data Analysis 
@@ -19,7 +22,7 @@ head(concrete)
 plot_cormat(concrete)
 
 # Scatter Plots
-scatter(concrete, "Concrete Compressive Strength", col = 3, row = 3)
+scatter(concrete, "Concrete_Compressive_Strength", col = 3, row = 3)
 
 ## Regression & Feature Selection
 
@@ -27,23 +30,33 @@ scatter(concrete, "Concrete Compressive Strength", col = 3, row = 3)
 model <- lm(Concrete_Compressive_Strength ~ ., data = concrete)
 
 # Stepwise Forward Selection
-k <- ols_step_forward_p(model, details = TRUE)
-k
-plot(k)
+stepwise_forward <- ols_step_forward_p(model, details = TRUE)
+stepwise_forward
+plot(stepwise_forward)
 
 # Stepwise Backward Elimination
-k <- ols_step_backward_p(model, details = TRUE)
-k
-plot(k)
+stepwise_backward <- ols_step_backward_p(model, details = TRUE)
+stepwise_backward
+plot(stepwise_backward)
 
 # Stepwise Regression
-k <- ols_step_both_p(model, details = TRUE)
-k
-plot(k)
+stepwise_backward <- ols_step_both_p(model, details = TRUE)
+stepwise_backward
+plot(stepwise_backward)
 
-# Ridge Regression
+# -- Ridge & Lasso Regression
+x = model.matrix(Concrete_Compressive_Strength ~ ., data = concrete)
+y = concrete$Concrete_Compressive_Strength
 
-#Lasso Regression 
+# Ridge Regression 
+ridge_lambda = cv.glmnet(x, y, alpha = 0)$lambda.min
+ridge = glmnet(x, y, alpha = 0, lambda = ridge_lambda)
+coef(ridge)
+
+# Lasso Regression 
+lasso_lambda = cv.glmnet(x, y, alpha = 1)$lambda.min
+lasso = glmnet(x, y, alpha = 1, lamdda = lasso_lambda)
+coef(lasso)
 
 # -- Quadratic Regression Model
 full_model_quad <- lm(Concrete_Compressive_Strength ~ Cement + Blast_Furnace_Slag + Fly_Ash + Water + Superplasticizer + Coarse_Aggregate + Fine_Aggregate + Age + #linear terms
@@ -118,10 +131,3 @@ summary(backward_cubicX )
 # CubicX Stepwise Regression
 stepwise_cubicX <- step(empty_formula, scope=list(upper = full_model_cubicX), direction = "both", trace = FALSE)
 summary(stepwise_cubicX )
-
-
-
-
-
-
-
