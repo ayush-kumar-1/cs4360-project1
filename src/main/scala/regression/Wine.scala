@@ -1,4 +1,4 @@
-package regression
+package regression 
 
 //ScalaTion imports
 import scalation.analytics.{ANCOVA, Regression, QuadRegression, QuadXRegression, 
@@ -62,7 +62,6 @@ object Wine extends App {
     var (forwardCX, backwardCX, stepwiseCX) = run_model(CubicX, "CubicCrossRegression")
 
     
-<<<<<<< Updated upstream
     banner("Multiple Linear Regression")
     println(s"Forward: ${forward.fitMap} \n\nBackward: ${backward.fitMap} \n\nStepwise: ${stepwise.analyze().fitMap}")
     banner("Quadratic Regresssion")
@@ -125,18 +124,5 @@ object Wine extends App {
         plot.saveImage(basePath + path) 
 
     } //plot_and_save
-=======
-    //banner("Cubic Model")
-
-    //var (backRegCubic, _) = Cubic.backwardElimAll(cross = false, index_q = Fit.index_rSqBar)
-    //var (forRegCubic, _) = Cubic.forwardSelAll(cross = false, index_q = Fit.index_rSqBar)
-    //var (stepRegCubic, _) = Helper.stepRegressionAll(Cubic, index_q = Fit.index_rSqBar)
-
-    //banner("Cubic Model with Cross Term")
-
-    //var (backRegCubicX, _) = CubicX.backwardElimAll(cross = false, index_q = Fit.index_rSqBar)
-    //var (forRegCubicX, _) = CubicX.forwardSelAll(cross = false, index_q = Fit.index_rSqBar)
-    //var (stepRegCubicX, _) = Helper.stepRegressionAll(CubicX, index_q = Fit.index_rSqBar)
->>>>>>> Stashed changes
 
 } // Wine
