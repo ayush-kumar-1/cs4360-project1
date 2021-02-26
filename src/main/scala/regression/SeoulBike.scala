@@ -19,15 +19,15 @@ import helper.Helper
 
 /**
 * Regression Analysis for winequality dataset. 
-* @author Brandon Amirouche
+* @author Ayush Kumar
 */
-object AutoMPG extends App {
+object SeoulBike extends App {
 
-    val autoMPG = Relation.apply("data/auto-mpg.csv", "autoMPG", 
+    val bike = Relation.apply("data/SeoulBikeDataCleaned.csv", "bike", 
                                 domain=null, key = 0, eSep = ";", cPos = null)
-    autoMPG.show(5)
+    bike.show(5)
 
-    val (x,y) = autoMPG.toMatriDD(0 to 5, 6)
+    val (x,y) = bike.toMatriDD(0 to 11, 12)
     val ox = new MatrixD(x.dim1, 1, 1.0) ++^ x // x augmented with vector of ones 
 
     val mu_x = x.mean
@@ -39,14 +39,8 @@ object AutoMPG extends App {
     val MVR = new Regression(ox,y) 
     val Quad = new QuadRegression(x,y)
     val QuadX = new QuadXRegression(x, y) 
-    
-    //val CubicX = new Regression(Helper.reduce_coll(new CubicXRegression(x, y)), y)
-    val cx  = Helper.reduce_coll(new Regression(x, y), threshold = 2)
-    val Cubic = new CubicRegression(cx, y)
-    val CubicX = new CubicXRegression(cx, y)
-    
-    //val Cubic = new CubicRegression(Helper.reduce_coll(new Regression(x, y)), y) 
-    //val CubicX = new CubicXRegression(Helper.reduce_coll(new Regression(x, y)), y) 
+    val Cubic = new CubicRegression(x, y) 
+    val CubicX = new CubicXRegression(x, y) 
     
     val Ridge = new RidgeRegression(x_c, y_c) 
     val Lasso = new LassoRegression(x_c, y_c)
@@ -61,7 +55,7 @@ object AutoMPG extends App {
     var (forwardC, backwardC, stepwiseC) = run_model(Cubic, "CubicRegression")
     var (forwardCX, backwardCX, stepwiseCX) = run_model(CubicX, "CubicCrossRegression")
 
-    
+
     banner("Multiple Linear Regression")
     println(s"Forward: ${forward.fitMap} \n\nBackward: ${backward.fitMap} \n\nStepwise: ${stepwise.analyze().fitMap}")
     banner("Quadratic Regresssion")
@@ -80,7 +74,6 @@ object AutoMPG extends App {
 
     banner("Lasso Regression")
     println(Lasso.analyze().summary)
-    
 
     /**
     * Does forward selection, backward elimination and stepwise regression 
@@ -115,7 +108,7 @@ object AutoMPG extends App {
     * @param regMat the matrix that results from the process 
     * @param path the path to be saved at 
     */
-    def plot_and_save (regMat: MatriD, path: String, basePath: String = "plots/AutoMPG/Scala/")  = { 
+    def plot_and_save (regMat: MatriD, path: String, basePath: String = "plots/Bike/Scala/")  = { 
         val plot = new PlotM(VectorD.range(0, regMat.dim1 - 2), regMat.t, 
             label = Array[String]("R^2", "adj-R^2", "cvR^2"), 
             _title = "Quality of Fit vs. Model Complexity", 
