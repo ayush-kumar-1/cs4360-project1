@@ -18,16 +18,40 @@ import java.io.{File, FileOutputStream}
 import helper.Helper
 
 /**
-* Regression Analysis for winequality dataset. 
-* @author Ayush Kumar
+* Regression Analysis for SeoulBike dataset. 
+* @author Brandon Amirouche
 */
 object SeoulBike extends App {
 
     val bike = Relation.apply("data/SeoulBikeDataCleaned.csv", "bike", 
-                                domain=null, key = 0, eSep = ";", cPos = null)
+                                domain=null, key = 0, eSep = ",", cPos = null)
     bike.show(5)
 
-    val (x,y) = bike.toMatriDD(0 to 11, 12)
+
+
+
+
+
+
+
+
+
+    //Here, we attach the last 5 columns away from the squaring of the Matrix in order to avoid total Colinearity, which will
+    //corrupt the results and produce NaN or infinite answers
+
+    val (x,y) = bike.toMatriDD(1 to 14, 0)
+
+    val xQuad = new QuadRegression(Helper.reduce_coll(new Regression(bike.toMatriD(1 to 9), y), threshold = 10), y).getX ++^ bike.toMatriD(10 to 14)
+
+    val xQuadX = new QuadXRegression(Helper.reduce_coll(new Regression(bike.toMatriD(1 to 9), y), threshold = 10), y).getX ++^ bike.toMatriD(10 to 14)
+
+    val xCubic = new CubicRegression(Helper.reduce_coll(new Regression(bike.toMatriD(1 to 9), y), threshold = 10), y).getX ++^ bike.toMatriD(10 to 14)
+
+    val xCubicX = new CubicXRegression(Helper.reduce_coll(new Regression(bike.toMatriD(1 to 9), y), threshold = 10), y).getX ++^ bike.toMatriD(10 to 14)
+
+    //val xDQuad = new QuadRegression(xD,y)
+    //println("hello world")
+    val cx  = Helper.reduce_coll(new Regression(x, y), threshold = 2)
     val ox = new MatrixD(x.dim1, 1, 1.0) ++^ x // x augmented with vector of ones 
 
     val mu_x = x.mean
@@ -37,10 +61,18 @@ object SeoulBike extends App {
     val y_c = y - mu_y
     //Creating all the models
     val MVR = new Regression(ox,y) 
-    val Quad = new QuadRegression(x,y)
-    val QuadX = new QuadXRegression(x, y) 
-    val Cubic = new CubicRegression(x, y) 
-    val CubicX = new CubicXRegression(x, y) 
+    //val Quad = new QuadRegression(cx,y)
+    val Quad = new Regression(xQuad, y)
+
+    val QuadX = new Regression(xQuadX, y) 
+    
+    //val CubicX = new Regression(Helper.reduce_coll(new CubicXRegression(x, y)), y)
+    //val cx  = Helper.reduce_coll(new Regression(x, y), threshold = 10)
+    val Cubic = new Regression(xCubic, y)
+    val CubicX = new Regression(xCubicX, y)
+    
+    //val Cubic = new CubicRegression(Helper.reduce_coll(new Regression(x, y)), y) 
+    //val CubicX = new CubicXRegression(Helper.reduce_coll(new Regression(x, y)), y) 
     
     val Ridge = new RidgeRegression(x_c, y_c) 
     val Lasso = new LassoRegression(x_c, y_c)
@@ -108,7 +140,7 @@ object SeoulBike extends App {
     * @param regMat the matrix that results from the process 
     * @param path the path to be saved at 
     */
-    def plot_and_save (regMat: MatriD, path: String, basePath: String = "plots/Bike/Scala/")  = { 
+    def plot_and_save (regMat: MatriD, path: String, basePath: String = "plots/Bike/")  = { 
         val plot = new PlotM(VectorD.range(0, regMat.dim1 - 2), regMat.t, 
             label = Array[String]("R^2", "adj-R^2", "cvR^2"), 
             _title = "Quality of Fit vs. Model Complexity", 

@@ -12,9 +12,27 @@ head(autoMPG)
 #correlation matrices to determine collinearity 
 
 plot_cormat(autoMPG)
-#reproducibility for both dataframes (red_wine, white_wine)
 
 scatter(autoMPG, "model.year", col = 3, row = 4)
+
+
+### Ridge and Lasso Regression 
+x = model.matrix(model.year ~ ., data = autoMPG)
+y = autoMPG$model.year
+### Finding the optimal lambda 
+lasso_lambda = cv.glmnet(x, y, alpha = 1)$lambda.min
+ridge_lambda = cv.glmnet(x, y, alpha = 0)$lambda.min
+
+ridge = glmnet(x, y, alpha = 0, lambda = ridge_lambda)
+lasso = glmnet(x, y, alpha = 1, lamdda = lasso_lambda)
+
+coef(ridge)
+coef(lasso)
+
+
+
+
+
 
 ###feature selection
 #feature selection using forward selection

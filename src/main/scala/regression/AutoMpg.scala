@@ -18,16 +18,16 @@ import java.io.{File, FileOutputStream}
 import helper.Helper
 
 /**
-* Regression Analysis for winequality dataset. 
+* Regression Analysis for autoMPG dataset. 
 * @author Brandon Amirouche
 */
 object AutoMPG extends App {
 
     val autoMPG = Relation.apply("data/auto-mpg.csv", "autoMPG", 
-                                domain=null, key = 0, eSep = ";", cPos = null)
+                                domain=null, key = 0, eSep = ",", cPos = null)
     autoMPG.show(5)
 
-    val (x,y) = autoMPG.toMatriDD(0 to 5, 6)
+    val (x,y) = autoMPG.toMatriDD(1 to 6, 0)
     val ox = new MatrixD(x.dim1, 1, 1.0) ++^ x // x augmented with vector of ones 
 
     val mu_x = x.mean
@@ -115,8 +115,8 @@ object AutoMPG extends App {
     * @param regMat the matrix that results from the process 
     * @param path the path to be saved at 
     */
-    def plot_and_save (regMat: MatriD, path: String, basePath: String = "plots/AutoMPG/Scala/")  = { 
-        val plot = new PlotM(VectorD.range(0, regMat.dim1 - 2), regMat.t, 
+    def plot_and_save (regMat: MatriD, path: String, basePath: String = "plots/Auto/")  = { 
+        val plot = new PlotM(VectorD.range(0, regMat.dim1), regMat.t, 
             label = Array[String]("R^2", "adj-R^2", "cvR^2"), 
             _title = "Quality of Fit vs. Model Complexity", 
             lines = true)

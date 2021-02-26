@@ -47,9 +47,27 @@ head(bike_Data1)
 plot_cormat(bike_Data1)
 
   
-#reproducibility for both dataframes (red_wine, white_wine)
+#reproducibility for both dataframes
 
 scatter(bike_Data1, "Rented.Bike.Count", col = 4, row = 4)
+
+
+
+### Ridge and Lasso Regression 
+x = model.matrix(Rented.Bike.Count ~ ., data = bike_Data1)
+y = bike_Data1$Rented.Bike.Count
+### Finding the optimal lambda 
+lasso_lambda = cv.glmnet(x, y, alpha = 1)$lambda.min
+ridge_lambda = cv.glmnet(x, y, alpha = 0)$lambda.min
+
+ridge = glmnet(x, y, alpha = 0, lambda = ridge_lambda)
+lasso = glmnet(x, y, alpha = 1, lamdda = lasso_lambda)
+
+coef(ridge)
+coef(lasso)
+
+
+
 
 ###feature selection
 #feature selection using forward selection
