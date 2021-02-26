@@ -135,19 +135,12 @@ full_model_cubicX <- lm(NOx ~ (Time + CO + Tin_oxide + NMHC + Benzene + Titania 
 
 # CubicX Forward Selection
 forward_cubicX <- step(empty_formula, scope=list(upper = full_model_cubicX), direction = "forward", trace = FALSE)
-summary(forward_cubicX )
+summary(forward_cubicX)
 
 # CubicX Backward Elimination
 backward_cubicX <- step(full_model_cubicX, direction = "backward", trace = FALSE) 
-summary(backward_cubicX )
+summary(backward_cubicX)
 
 # CubicX Stepwise Regression
 stepwise_cubicX <- step(empty_formula, scope=list(upper = full_model_cubicX), direction = "both", trace = FALSE)
-summary(stepwise_cubicX )
-
-
-
-
-
-
-
+summary(stepwise_cubicX)
