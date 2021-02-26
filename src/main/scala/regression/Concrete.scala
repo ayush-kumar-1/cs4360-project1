@@ -7,13 +7,6 @@
 
 package regression 
 
-//Scala imports 
-import scala.Console
-import java.io.{File, FileOutputStream}
-
-//other imports 
-import helper.Helper
-
 //ScalaTion imports
 import scalation.analytics.{ANCOVA, Regression, QuadRegression, QuadXRegression, 
                             CubicRegression, CubicXRegression, LassoRegression, RidgeRegression}
@@ -24,14 +17,21 @@ import scalation.linalgebra.{MatriD, MatrixD, VectorD, VectoD, VectorI}
 import scalation.plot.{Plot, PlotM} 
 import scalation.util.banner
 
+//Scala imports 
+import scala.Console
+import scala.collection.mutable.Set
+import java.io.{File, FileOutputStream}
+
+//other imports 
+import helper.Helper
 
 object Concrete extends App {
 
-    val concrete = Relation.apply("../data/ConcreteCompressiveStrength/Concrete_Data.csv", "concrete", 
-                                domain=null, key = 0, eSep = ";", cPos = null)
+    val concrete = Relation("data/ConcreteCompressiveStrength/Concrete_Data.csv", "auto_mpg", null, -1)
+
     concrete.show(5)
 
-    val (x,y) = concrete.toMatriDD(0 to 10, 11)
+    val (x,y) = concrete.toMatriDD(0 to 7, 8)
     val ox = new MatrixD(x.dim1, 1, 1.0) ++^ x // x augmented with vector of ones 
 
     val mu_x = x.mean
@@ -39,19 +39,14 @@ object Concrete extends App {
 
     val x_c = x - mu_x
     val y_c = y - mu_y
-
     //Creating all the models
     val MVR = new Regression(ox,y) 
     val Quad = new QuadRegression(x,y)
     val QuadX = new QuadXRegression(x, y) 
-    
-    //val CubicX = new Regression(Helper.reduce_coll(new CubicXRegression(x, y)), y)
-    val cx  = Helper.reduce_coll(new Regression(x, y), threshold = 2)
-    val Cubic = new CubicRegression(cx, y)
-    val CubicX = new CubicXRegression(cx, y)
-    
-    //val Cubic = new CubicRegression(Helper.reduce_coll(new Regression(x, y)), y) 
-    //val CubicX = new CubicXRegression(Helper.reduce_coll(new Regression(x, y)), y) 
+
+    //Due to high collinearity these models are built with a small portion of the columns of x
+    val Cubic = new CubicRegression(Helper.reduce_coll(new Regression(x, y)), y) 
+    val CubicX = new CubicXRegression(Helper.reduce_coll(new Regression(x, y)), y) 
     
     val Ridge = new RidgeRegression(x_c, y_c) 
     val Lasso = new LassoRegression(x_c, y_c)
@@ -59,13 +54,13 @@ object Concrete extends App {
     banner("Correlation Matrix")
     println(MVR.corrMatrix())
 
+    
     var (forward, backward, stepwise) = run_model(MVR, "MultipleLinearRegression")
     var (forwardQ, backwardQ, stepwiseQ) = run_model(Quad, "QuadraticRegression")
     var (forwardQX, backwardQX, stepwiseQX) = run_model(QuadX, "QuadraticCrossRegression")
     var (forwardC, backwardC, stepwiseC) = run_model(Cubic, "CubicRegression")
     var (forwardCX, backwardCX, stepwiseCX) = run_model(CubicX, "CubicCrossRegression")
 
-    
     banner("Multiple Linear Regression")
     println(s"Forward: ${forward.fitMap} \n\nBackward: ${backward.fitMap} \n\nStepwise: ${stepwise.analyze().fitMap}")
     banner("Quadratic Regresssion")
@@ -81,10 +76,11 @@ object Concrete extends App {
 
     Ridge.findLambda
     println(Ridge.analyze().summary)
-
+    
     banner("Lasso Regression")
     println(Lasso.analyze().summary)
-    
+
+
 
     /**
     * Does forward selection, backward elimination and stepwise regression 
@@ -119,14 +115,14 @@ object Concrete extends App {
     * @param regMat the matrix that results from the process 
     * @param path the path to be saved at 
     */
-    def plot_and_save (regMat: MatriD, path: String, basePath: String = "plots/Concrete/Scala/")  = { 
+    def plot_and_save (regMat: MatriD, path: String, basePath: String = "plots/Emissions/Scala/")  = { 
         val plot = new PlotM(VectorD.range(0, regMat.dim1 - 2), regMat.t, 
             label = Array[String]("R^2", "adj-R^2", "cvR^2"), 
             _title = "Quality of Fit vs. Model Complexity", 
             lines = true)
         
         plot.saveImage(basePath + path) 
-
     } //plot_and_save
 
-} // Concrete
+
+} //GasEmissions 
